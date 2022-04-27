@@ -70,7 +70,7 @@ public class UserCRUD {
             }return null;
         
         }catch(Exception e){
-            response.setStatus(500);
+            response.setStatus(404);
             try{
                 response.getOutputStream().print(e.getMessage());
             }catch(Exception e2){
@@ -81,4 +81,73 @@ public class UserCRUD {
     
     }
 
+    //methode qui permet de creer un nouvel u utilsateur
+    @PostMapping("/{userId}")
+    public User create(@PathVariable(value="userId") String id, User u, HttpServletResponse response){
+
+        try (Connection connection = dataSource.getConnection()){
+            Statement stmt = connection.createStatement();
+            ResultSet rss  = stmt.executeQuery("SELECT * FROM users");
+            while(rss.next()){
+              String identifiant = rss.getString("id");
+              if(id.equals(identifiant)){
+                  //si la ressource existe déja 
+                  response.setStatus(403);
+              //TODO l'erreur 412 à prendre en compte
+              }else {
+                ResultSet rs  = stmt.executeQuery("INSERT INTO users values("+u.age+","+u.login+")");
+              }
+            }//A voir
+            }catch(Exception e){
+                response.setStatus(412);
+            }
+            //retour à voir
+       return null;
+    }
+
+    @PutMapping("/{userId}")
+    public User update(@PathVariable(value="userId") String id, @RequestBody User u, HttpServletResponse response) throws SQLException{
+
+        try (Connection connection = dataSource.getConnection()){
+            Statement stmt = connection.createStatement();
+            ResultSet rss  = stmt.executeQuery("SELECT * FROM users");
+            while(rss.next()){
+              String identifiant = rss.getString("id");
+              if(id.equals(identifiant)){
+                  //si la ressource existe déja 
+                 stmt.executeQuery("UPDATE users set login="+u.login+","+"age="+u.age);
+              //TODO l'erreur 412 à prendre en compte
+              }else {
+                response.setStatus(404);
+               
+              }
+            }//A voir
+        
+            //retour à voir
+    }
+
+        return null;
+    }
+
+
+
+@DeleteMapping("/{userId}")
+   public void delete(@PathVariable(value="userId") String id, HttpServletResponse response){
+
+    try (Connection connection = dataSource.getConnection()){
+        Statement stmt = connection.createStatement();
+        ResultSet rs  = stmt.executeQuery("SELECT * FROM users");
+        while(rs.next()){
+             String identifiant = rs.getString("id");
+             if(identifiant.equals(id)){
+                  stmt.executeQuery("DELETE FROM User WHERE id="+id);
+             }else{
+                response.setStatus(404);
+             }
+        }
+
+    }catch(Exception e){
+        System.err.print(e.getMessage());
+    }
+}
 }
