@@ -8,8 +8,10 @@ create table LesDefis
 	dateDeCreation Date,
 	description varchar,
 	constraint LesDefis_pk  primary key (id),
-	constraint  LesDefis_fk foreign key (auteur)  references LesChamis(login)
+	constraint  LesDefis_fk foreign key (auteur)  references LesChamis(login) 
 );
+
+
 
 insert into LesDefis values
 ('D127',  'Le Méchoui','carobis', '15/03/2021 16:03', '- Rendez vous à l''arrêt de bus "Maison du tourisme - Hubert Dubedout". 
