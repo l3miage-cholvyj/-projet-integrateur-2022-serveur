@@ -1,0 +1,73 @@
+drop table LesChamis;
+drop table LesDefis;
+
+create table LesDefis
+(
+	id varchar(20),
+	titre varchar(30),
+	auteur varchar(20),
+	dateDeCreation Date,
+	description varchar,
+	constraint LesDefis_pk  primary key (id),
+	constraint  LesDefis_fk foreign key (auteur)  references LesChamis(login)
+);
+
+create table LesChamis 
+(
+	login varchar(20) not null,
+	ageChamis int,
+	constraint LesChamis_pk primary key (login)
+);
+	
+
+
+insert into LesDefis values
+('D127',  'Le Méchoui','carobis', '15/03/2021 16:03', '- Rendez vous à l''arrêt de bus "Maison du tourisme - Hubert Dubedout". 
+- Cherche ce qu_il faut pour faire un méchoui.'
+);
+
+insert into LesDefis values ('D145',  'Le vert, je le mange !', 'escribis', '01/04/2021 15:03', '- Rendez vous à l''arrêt de bus "Grenoble - hôtel de ville". 
+ - Passe par "l ''orangerie".
+- Ca te donneras de l''énergie mais surtout ne dépasse pas les bornes !
+- Fatiguée ? T''as pas fait des bornes. Tu devrais avoir de l''énergie.
+ - Reste sur le parking pour te recharger les piles.
+ - Cherche plutôt celui qui pourrait te donner matière à te protéger pendant l''hiver.
+ - Il est là. Il te regarde de haut. Il t''observe.
+ - Il bêle. "Je suis ceux que je suis. Et le vert, je le mange !"
+ - Combien de boucles sous mon cou ?'
+);
+
+insert into LesDefis values ('D151',  'Ils tournent et rond.', 'nomoldu','13/04/2021 12:03', '- Rendez-vous à l''arrêt Victor Hugo
+  - Il tourne en rond pour le plaisir des petits. Cherche le.
+  - Si il n''y est pas demande à quelqu''un où il est quand il y est :-)
+  - Fait toi un selfie avec les 2 moutons en utilisant ton sens de la créativité.
+  - Si tu n''y arrives pas demande à quelqu''un qu''il/elle te tire un portrait.'
+);
+
+insert into LesDefis values ('D189',  'Et l''écureil alors ?','carobis', '17/03/2021 12:03', '- Rendez-vous à l''arrêt Victor-Hugo
+  - C''est l''été. Tu as besoin de grand air.
+  - Demande à quelqu''un où est la maison de la montagne.
+  - Longe le tram pour y aller. Tu demanderas où on peut voir des chamois.
+  - Vas pas trop vite ! Les chamoix sont en plein centre ville !
+  - Grenoble c''est la ville du béton, mais c''est aussi la capitale des Alpes.
+  - Fait attention tu pourrais te faire écraser par des pachidermes !
+  - (Q1) Combien d''écureuils (compter uniquement les tout plats) ?
+  - (Q2) Combien de chamois ?
+  - (Q3) Combien d''éléphants ?'
+);
+
+insert into LesChamis values ('carobis', 21);
+insert into LesChamis values ('escribis', 43);
+insert into LesChamis values ('momo', 38);
+insert into LesChamis values ('nomoldu', 20);
+insert into LesChamis values ('python38', 18);
+insert into LesChamis values ('yes4moldus', 38);
+
+select * from LesDefis ;
+select * from LesChamis ;
+
+
+
+
+
+
