@@ -1,12 +1,9 @@
 package com.example;
 
+import com.google.cloud.Date;
+
 public class User {
-    public String description;
-    public String nom;
-    public String prenom;
+    public String login;
+    public int age;
 
-
-    public User (String nom, String prenom,String description){
-
-    }
 }

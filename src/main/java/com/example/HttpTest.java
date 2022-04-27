@@ -74,5 +74,12 @@ public class HttpTest {
         return "error";
       }
     }
+
+    @GetMapping("/id/users")
+    String test(){
+      return "test bien reussi";
+    }
+
+    
   
 }
