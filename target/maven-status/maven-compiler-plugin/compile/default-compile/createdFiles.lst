@@ -1,5 +1,5 @@
 com/example/RestServer.class
-com/example/User.class
+com/example/model/UserCRUD.class
 com/example/DbConnection.class
 com/example/HttpTest.class
-com/example/UserCRUD.class
+com/example/classe/User.class

@@ -29,6 +29,9 @@ public class HttpTest {
     @Autowired
     private DataSource dataSource;
 
+   
+
+
     @GetMapping("/auth")
     String auth(@RequestHeader("Authorization") String idToken) {
       System.out.println( idToken );
@@ -75,10 +78,7 @@ public class HttpTest {
       }
     }
 
-    @GetMapping("/id/users")
-    String test(){
-      return "test bien reussi";
-    }
+    
 
     
   
