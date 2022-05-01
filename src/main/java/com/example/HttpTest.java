@@ -30,8 +30,6 @@ public class HttpTest {
     private DataSource dataSource;
 
    
-
-
     @GetMapping("/auth")
     String auth(@RequestHeader("Authorization") String idToken) {
       System.out.println( idToken );

@@ -1,5 +1,9 @@
+com/example/Controller/LesDefisCRUD.class
 com/example/RestServer.class
-com/example/model/UserCRUD.class
+com/example/Controller/LesDefisRepository.class
+com/example/Controller/LesChamisCRUD.class
+com/example/Controller/LesChamisRepository.class
 com/example/DbConnection.class
 com/example/HttpTest.class
-com/example/classe/User.class
+com/example/model/LesChamis.class
+com/example/model/LesDefis.class
