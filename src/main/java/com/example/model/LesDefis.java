@@ -21,7 +21,7 @@ import javax.persistence.*;
 
 public class LesDefis{
 
-    @Id @GeneratedValue
+    @Id
     @Column(name = "id", nullable = false,updatable = true)
     private String id;
 
@@ -38,7 +38,7 @@ public class LesDefis{
     private String description;
 
      @ManyToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "auteur")
+     @JoinColumn(name = "login")
      private LesChamis auteur;
 
     public LesDefis(){}

@@ -61,9 +61,9 @@ public class LesDefisCRUD {
      * @return le defis 
      */
     @PostMapping("/{defiId}")
-    public LesDefis create(@PathVariable(value = "defi") String id, @RequestBody LesDefis def,HttpServletResponse response) {
+    public LesDefis create(@PathVariable(value = "defiId") String id, @RequestBody LesDefis def,HttpServletResponse response) {
+        System.out.println("=================methode post==================");
         LesDefis defi = new LesDefis();
-
         if (defiReposit.findById(id).isPresent()) {
             // si l'identifiant existe deja
             response.setStatus(403);
@@ -76,6 +76,8 @@ public class LesDefisCRUD {
             defi.setAuteur(def.getAuteur());
             defi.setDescription(def.getDescription());
             defi.setDateDeCreation(def.getDateDeCreation());
+            defiReposit.save(defi);
+            
         }
         return defi;
     }
@@ -83,10 +85,12 @@ public class LesDefisCRUD {
     @PutMapping("/{defiId}")
     public LesDefis update(@PathVariable(value = "defiId") String id, @RequestBody LesDefis def, HttpServletResponse response) {
         LesDefis defi = new LesDefis();
+        LesChamis cham = new LesChamis();
         if (defiReposit.findById(id).isPresent()) {
             defi.setId(def.getId());
             defi.setTitre(def.getTitre());
-            defi.setAuteur(def.getAuteur());
+            cham.setLogin(def.getAuteur().getLogin());
+            defi.setAuteur(cham);
             defi.setDescription(def.getDescription());
             defi.setDateDeCreation(def.getDateDeCreation());
         } else {
