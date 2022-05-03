@@ -17,8 +17,6 @@ import javax.persistence.*;
 //mapping de la table les defies
 
 @Entity
-@Table(name = "les_defis")
-
 public class LesDefis{
 
     @Id
@@ -31,14 +29,13 @@ public class LesDefis{
     //@Column(name = "auteur",nullable = false, updatable = true,insertable = true)
    // private String auteur;
 
-    @Column(name = "datedecreation",nullable = false, updatable = true,insertable = true)
+    @Column(name = "datedecreation",nullable = true, updatable = true,insertable = true)
     private Date dateDeCreation;
 
-    @Column(name = "description",nullable = false, updatable = true,insertable = true)
+    @Column(name = "description",nullable = true, updatable = true,insertable = true)
     private String description;
 
-     @ManyToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "auteur")
+     @ManyToOne()
      private LesChamis auteur;
 
     public LesDefis(){}
@@ -90,7 +87,6 @@ public class LesDefis{
     public void setDescription(String description) {
         this.description = description;
     }
-    
     
 
 }

@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.*;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
 
 import com.example.model.LesChamis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,13 @@ public class LesChamisCRUD {
 
     @GetMapping("/")
     public List<LesChamis> allUsers(HttpServletResponse response) {
-        return  chamiReposit.findAll();
+       //System.out.println("==========="+ new LesChamis().getDefiesCrees().size());
+        List<LesChamis> chamis = new ArrayList<>();
+        try {
+            chamis = chamiReposit.findAll();
+        } catch (EntityNotFoundException e) {
+        }
+        return chamis;
     }
 
     // read
@@ -59,12 +67,16 @@ public class LesChamisCRUD {
 
     // methode qui permet de creer un nouvel u utilsateur
     @PostMapping("/{userId}")
-    public LesChamis create(@PathVariable(value = "userId") String id, @RequestBody LesChamis u, HttpServletResponse response) {
+    public LesChamis create(@PathVariable(value = "userId") String id, @RequestBody LesChamis u,
+            HttpServletResponse response) {
         LesChamis chami = new LesChamis();
+
+        System.out.println("voici le login"+u.getLogin());
 
         if (chamiReposit.findById(id).isPresent()) {
             // si l'identifiant existe deja
             response.setStatus(403);
+
         } else if (!u.getLogin().equals(id)) {
             // les id ne correspondent pas
             response.setStatus(412);
@@ -77,7 +89,8 @@ public class LesChamisCRUD {
     }
 
     @PutMapping("/{userId}")
-    public LesChamis update(@PathVariable(value = "userId") String id, @RequestBody LesChamis u, HttpServletResponse response) {
+    public LesChamis update(@PathVariable(value = "userId") String id, @RequestBody LesChamis u,
+            HttpServletResponse response) {
         LesChamis cham = new LesChamis();
         if (chamiReposit.findById(id).isPresent()) {
             cham.setAge(u.getAge());
@@ -91,11 +104,11 @@ public class LesChamisCRUD {
 
     @DeleteMapping("/{userId}")
     public void delete(@PathVariable(value = "userId") String id, HttpServletResponse response) {
-        if(chamiReposit.findById(id).isPresent()){
+        if (chamiReposit.findById(id).isPresent()) {
             chamiReposit.deleteById(id);
-        }else{
+        } else {
             response.setStatus(404);
         }
-        
+
     }
 }

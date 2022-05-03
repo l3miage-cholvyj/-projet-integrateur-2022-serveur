@@ -5,21 +5,21 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "les_chamis")
 public class LesChamis {
+
 
     @Id 
     @Column(name = "login",nullable = false, updatable = true )
+  //  @OneToMany(mappedBy  = "auteur")
     private String login;
 
     @Column(name = "age",nullable = false, updatable = true,insertable = true)
     private int age;
 
-   // @OneToMany(mappedBy="chami",cascade = CascadeType.ALL)
-   //private List<LesDefis> defiesCrees;
+   // @OneToMany(mappedBy="auteur",cascade = CascadeType.ALL)
+   // private List<LesDefis> defiesCrees;
 
 
-    
     public LesChamis(){}
     
     public LesChamis(String login, int age) {
@@ -40,11 +40,5 @@ public class LesChamis {
     }
 
 
-  
-    
-    @Override
-    public String toString() {
-        return "LesChamis [age=" + age + ", login=" + login + "]";
-    }
-    
+
 }

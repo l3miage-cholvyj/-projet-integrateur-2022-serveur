@@ -46,7 +46,7 @@ public class LesDefisCRUD {
 
     @GetMapping("/{defi}")
     public LesDefis read(@PathVariable(value = "defi") String id, HttpServletResponse response) {
-
+        
         LesDefis defi = new LesDefis();
         if (defiReposit.findById(id).isPresent()) {
             defi = defiReposit.getById(id);
@@ -69,6 +69,7 @@ public class LesDefisCRUD {
         System.out.println("=================methode post==================");
         LesDefis defi = new LesDefis();
         boolean isAuteur = isAuteur(def,response);
+        System.out.println("++++++++"+isAuteur);
         if (defiReposit.findById(id).isPresent()) {
             // si l'identifiant existe deja
             response.setStatus(403);
@@ -131,21 +132,10 @@ public class LesDefisCRUD {
 
         List<LesChamis> leschamis = new ArrayList<>();
         leschamis = chamiReposit.findAll();
-        boolean isAuteur = false;
-        Iterator<LesChamis> it = leschamis.iterator();
-        try {
-            while(it.hasNext() && !(it.next().getLogin().equals(def.getAuteur().getLogin()) && it.next().getAge()==def.getAuteur().getAge())){
-                System.out.println("on cherche l'auteur");
-            }
-            if(it.hasNext() && !(it.next().getLogin().equals(def.getAuteur().getLogin()) && it.next().getAge()==def.getAuteur().getAge())){
-                System.out.println("ateur trouvé");
-                isAuteur = true;
-            }
-        } catch (NoSuchElementException e) {
-            System.out.println("________________non found");
-                response.setStatus(404);
-        }
         
+        boolean isAuteur = false;
+        
+       if(chamiReposit.findById(def.getAuteur().getLogin()).isPresent()) isAuteur = true;
     return  isAuteur;
     }
 }
