@@ -1,8 +1,10 @@
 
 package com.example.Controller;
 
-
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.*;
 
 @RestController
 @CrossOrigin
@@ -32,8 +35,8 @@ public class LesDefisCRUD {
     private DataSource dataSource;
     @Autowired
     private LesDefisRepository defiReposit;
-
-    // read All
+    @Autowired
+    private LesChamisRepository chamiReposit;
 
     @GetMapping("/")
     public List<LesDefis> allDefis(HttpServletResponse response) {
@@ -53,6 +56,7 @@ public class LesDefisCRUD {
         }
         return defi;
     }
+
     /**
      * 
      * @param id l'idenfiant du defi
@@ -64,35 +68,47 @@ public class LesDefisCRUD {
     public LesDefis create(@PathVariable(value = "defiId") String id, @RequestBody LesDefis def,HttpServletResponse response) {
         System.out.println("=================methode post==================");
         LesDefis defi = new LesDefis();
+        boolean isAuteur = isAuteur(def,response);
         if (defiReposit.findById(id).isPresent()) {
             // si l'identifiant existe deja
             response.setStatus(403);
         } else if (!def.getId().equals(id)) {
             // les id ne correspondent pas
             response.setStatus(412);
-        } else {
+        } else if(isAuteur){
             defi.setId(def.getId());
             defi.setTitre(def.getTitre());
             defi.setAuteur(def.getAuteur());
             defi.setDescription(def.getDescription());
             defi.setDateDeCreation(def.getDateDeCreation());
             defiReposit.save(defi);
-            
+                
+        }else{
+            System.out.println("l'auteur n'a pas été trouvé");
+            response.setStatus(404);
         }
+
         return defi;
     }
 
     @PutMapping("/{defiId}")
-    public LesDefis update(@PathVariable(value = "defiId") String id, @RequestBody LesDefis def, HttpServletResponse response) {
+    public LesDefis update(@PathVariable(value = "defiId") String id, @RequestBody LesDefis def,
+            HttpServletResponse response) {
         LesDefis defi = new LesDefis();
+        boolean isAuteur = isAuteur(def, response);
         LesChamis cham = new LesChamis();
-        if (defiReposit.findById(id).isPresent()) {
+        System.out.println("voici l'auteur =="+isAuteur);
+
+        if ((defiReposit.findById(id).isPresent()) && isAuteur) {
+            System.out.println("je suis dedans");
             defi.setId(def.getId());
             defi.setTitre(def.getTitre());
             cham.setLogin(def.getAuteur().getLogin());
+            cham.setAge(def.getAuteur().getAge());
             defi.setAuteur(cham);
             defi.setDescription(def.getDescription());
             defi.setDateDeCreation(def.getDateDeCreation());
+            defiReposit.save(defi);
         } else {
             response.setStatus(404);
         }
@@ -100,13 +116,36 @@ public class LesDefisCRUD {
     }
 
     @DeleteMapping("/{defiId}")
-    public void delete(@PathVariable(value = "defi") String id, HttpServletResponse response) {
-        if(defiReposit.findById(id).isPresent()){
+    public void delete(@PathVariable(value = "defiId") String id, HttpServletResponse response) {
+        if (defiReposit.findById(id).isPresent()) {
             defiReposit.deleteById(id);
-        }else{
+        } else {
             response.setStatus(404);
         }
-        
+
     }
 
+    
+
+    public boolean isAuteur(LesDefis def, HttpServletResponse response ) {
+
+        List<LesChamis> leschamis = new ArrayList<>();
+        leschamis = chamiReposit.findAll();
+        boolean isAuteur = false;
+        Iterator<LesChamis> it = leschamis.iterator();
+        try {
+            while(it.hasNext() && !(it.next().getLogin().equals(def.getAuteur().getLogin()) && it.next().getAge()==def.getAuteur().getAge())){
+                System.out.println("on cherche l'auteur");
+            }
+            if(it.hasNext() && !(it.next().getLogin().equals(def.getAuteur().getLogin()) && it.next().getAge()==def.getAuteur().getAge())){
+                System.out.println("ateur trouvé");
+                isAuteur = true;
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("________________non found");
+                response.setStatus(404);
+        }
+        
+    return  isAuteur;
+    }
 }

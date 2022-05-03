@@ -38,7 +38,7 @@ public class LesDefis{
     private String description;
 
      @ManyToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "login")
+     @JoinColumn(name = "auteur")
      private LesChamis auteur;
 
     public LesDefis(){}

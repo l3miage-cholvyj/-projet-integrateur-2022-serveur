@@ -16,7 +16,7 @@ public class LesChamis {
     private int age;
 
    // @OneToMany(mappedBy="chami",cascade = CascadeType.ALL)
-   // private List<LesDefis> defiesCrees;
+   //private List<LesDefis> defiesCrees;
 
 
     
