@@ -12,11 +12,13 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.core.sym.Name;
 
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
-//mapping de la table les defies
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class LesDefis{
 
     @Id
@@ -36,6 +38,7 @@ public class LesDefis{
     private String description;
 
      @ManyToOne()
+   // @JoinColumn(name="id")
      private LesChamis auteur;
 
     public LesDefis(){}
@@ -68,13 +71,6 @@ public class LesDefis{
         return dateDeCreation;
     }
 
-   /* public LesChamis getChami() {
-        return login;
-    }
-
-    public void setChami(LesChamis login) {
-        this.login = login;
-    }*/
 
     public void setDateDeCreation(Date dateDeCreation) {
         this.dateDeCreation = dateDeCreation;

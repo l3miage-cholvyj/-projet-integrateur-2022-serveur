@@ -42,6 +42,7 @@ public class LesChamisCRUD {
     @GetMapping("/")
     public List<LesChamis> allUsers(HttpServletResponse response) {
        //System.out.println("==========="+ new LesChamis().getDefiesCrees().size());
+
         List<LesChamis> chamis = new ArrayList<>();
         try {
             chamis = chamiReposit.findAll();

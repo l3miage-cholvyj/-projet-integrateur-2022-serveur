@@ -2,22 +2,25 @@ package com.example.model;
 
 import javax.persistence.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class LesChamis {
 
 
     @Id 
     @Column(name = "login",nullable = false, updatable = true )
-  //  @OneToMany(mappedBy  = "auteur")
     private String login;
 
     @Column(name = "age",nullable = false, updatable = true,insertable = true)
     private int age;
 
-   // @OneToMany(mappedBy="auteur",cascade = CascadeType.ALL)
-   // private List<LesDefis> defiesCrees;
+    @OneToMany(mappedBy="auteur")
+    public List<LesDefis> defiesCrees;
 
 
     public LesChamis(){}
@@ -38,7 +41,15 @@ public class LesChamis {
     public void setAge(int age) {
         this.age = age;
     }
-
+/*
+    public void setDefiesCrees(LesDefis def){
+        this.defiesCrees = def;
+    }
+    public LesDefis setDefLesDefis(){
+        return defiesCrees;
+    }
+    */
+    
 
 
 }
