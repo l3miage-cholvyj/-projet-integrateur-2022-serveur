@@ -35,7 +35,8 @@ public class Chami {
     @OneToMany(mappedBy="auteur",cascade = CascadeType.ALL)
     public List<Defi> defiesCrees;
 
-
+    @OneToMany(mappedBy = "visiteur",cascade = CascadeType.ALL)
+    private List<Visite> visites;
    
     @Transient
     private int nbreDefis;
@@ -108,6 +109,14 @@ public class Chami {
 
     public void setDefiesCrees(List<Defi> defiesCrees) {
         this.defiesCrees = defiesCrees;
+    }
+
+    public List<Visite> getVisites() {
+        return visites;
+    }
+
+    public void setVisites(List<Visite> visites) {
+        this.visites = visites;
     }
     
    

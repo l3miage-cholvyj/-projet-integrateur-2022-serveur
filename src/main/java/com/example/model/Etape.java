@@ -1,4 +1,5 @@
 package com.example.model;
+
 import javax.persistence.*;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -10,38 +11,38 @@ import java.beans.Transient;
 import java.io.Serializable;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Etape implements Serializable {
 
-
-    @Id @GeneratedValue()
-    @Column(name = "id",nullable = false, updatable = true )
+    @Id
+    @GeneratedValue()
+    @Column(name = "id", nullable = false, updatable = true)
     private int id;
 
-    @Column(name = "gps", updatable = true )
+    @Column(name = "gps", updatable = true)
     private String gps;
 
-    @Column(name = "numetape",nullable = false, updatable = true,insertable = true)
+    @Column(name = "numetape", nullable = false, updatable = true, insertable = true)
     private String numEtape;
 
-    @Column(name = " nbpoints",updatable = true,insertable = true)
+    @Column(name = " nbpoints", updatable = true, insertable = true)
     private String nbPoints;
 
-   @Column(name = "messagedebut", updatable = true,insertable = true)
+    @Column(name = "messagedebut", updatable = true, insertable = true)
     private String messageDebut;
-   @Column(name = "messageFin", updatable = true,insertable = true)
+    @Column(name = "messageFin", updatable = true, insertable = true)
     private String messageFin;
 
-    @Column(name = "question", updatable = true,insertable = true)
+    @Column(name = "question", updatable = true, insertable = true)
     private String question;
 
-    @Column(name = "reponse", updatable = true,insertable = true)
+    @Column(name = "reponse", updatable = true, insertable = true)
     private String reponse;
 
-    @Column(name = "qcmchoixun", updatable = true,insertable = true)
+    @Column(name = "qcmchoixun", updatable = true, insertable = true)
     private String qcmChoixUn;
 
-    @Column(name = "qcmchoixdeux", updatable = true,insertable = true)
+    @Column(name = "qcmchoixdeux", updatable = true, insertable = true)
     private String qcmchoixDeux;
 
     public int getId() {
@@ -164,21 +165,19 @@ public class Etape implements Serializable {
         this.nbrEtapePourDefi = nbrEtapePourDefi;
     }
 
-    @Column(name = "qcmchoixtrois",updatable = true,insertable = true)
+    @Column(name = "qcmchoixtrois", updatable = true, insertable = true)
     private String qcmChoiTrois;
 
-    @Column(name = "qcmchoixquatre", updatable = true,insertable = true)
+    @Column(name = "qcmchoixquatre", updatable = true, insertable = true)
     private String qcmchoixQuatre;
 
-    @Column(name = "indice", updatable = true,insertable = true)
+    @Column(name = "indice", updatable = true, insertable = true)
     private String indice;
-    
+
     @ManyToOne
     private Defi defi;
 
     @JsonSerialize
     private transient int nbrEtapePourDefi;
 
-
-   
 }

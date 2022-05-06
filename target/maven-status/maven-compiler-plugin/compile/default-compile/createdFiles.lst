@@ -9,7 +9,10 @@ com/example/Controller/EtapeCRUD.class
 com/example/repository/DefisRepository.class
 com/example/Controller/ArretCRUD.class
 com/example/model/Etape.class
+com/example/model/Visite.class
 com/example/repository/EtapeRepository.class
 com/example/HttpTest.class
+com/example/repository/VisiteRepository.class
+com/example/Controller/VisiteCRUD.class
 com/example/repository/ArretRepository.class
 com/example/Controller/ChamiCRUD.class

@@ -4,8 +4,11 @@
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/EtapeRepository.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/ChamiCRUD.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/HttpTest.java
+/home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/Visite.java
+/home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/VisiteCRUD.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/Arret.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/EtapeCRUD.java
+/home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/VisiteRepository.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/DefisRepository.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/DefiCRUD.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/ChamisRepository.java

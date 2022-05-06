@@ -43,11 +43,15 @@ public class Defi{
 
     @ManyToOne()
     private Arret arret;
+
     @OneToMany(mappedBy = "defi")
     private List<Etape> EtapeDunDefi;
     
     @ManyToOne()
     private Chami auteur;
+
+    @OneToMany(mappedBy = "defiVisite")
+    private List<Visite> visite;
 
     public List<Etape> getEtapeDunDefi() {
         return EtapeDunDefi;
@@ -122,6 +126,21 @@ public class Defi{
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+    public List<Visite> getVisite() {
+        return visite;
+    }
+
+
+    public void setVisite(List<Visite> visite) {
+        this.visite = visite;
+    }
+
+
+   
+
+   
     
 
 }
