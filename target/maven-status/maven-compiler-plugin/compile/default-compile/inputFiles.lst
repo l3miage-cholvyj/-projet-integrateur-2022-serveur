@@ -1,12 +1,16 @@
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/Defi.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/ArretCRUD.java
+/home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/ReponseCRUD.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/Etape.java
+/home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/ReponseRepository.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/EtapeRepository.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/ChamiCRUD.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/HttpTest.java
+/home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/CompositeKey.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/Visite.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/VisiteCRUD.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/Arret.java
+/home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/model/Reponse.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/Controller/EtapeCRUD.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/VisiteRepository.java
 /home/ecloud/projet-integrateur-2022-serveur/src/main/java/com/example/repository/DefisRepository.java

@@ -2,9 +2,11 @@
 package com.example.Controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -48,7 +50,7 @@ public class DefiCRUD {
 
     @GetMapping("/{defi}")
     public Defi read(@PathVariable(value = "defi") String id, HttpServletResponse response) {
-        
+
         Defi defi = new Defi();
         if (defiReposit.findById(id).isPresent()) {
             defi = defiReposit.getById(id);
@@ -61,24 +63,25 @@ public class DefiCRUD {
 
     /**
      * 
-     * @param id l'idenfiant du defi
-     * @param def defis à inserer 
-     * @param response  la reponse du server
-     * @return le defis 
+     * @param id       l'idenfiant du defi
+     * @param def      defis à inserer
+     * @param response la reponse du server
+     * @return le defis
      */
     @PostMapping("/{defiId}")
-    public Defi create(@PathVariable(value = "defiId") String email, @RequestBody Defi def,HttpServletResponse response) {
+    public Defi create(@PathVariable(value = "defiId") String email, @RequestBody Defi def,
+            HttpServletResponse response) {
         System.out.println("=================methode post==================");
         Defi defi = new Defi();
-        boolean isAuteur = isAuteur(def,response);
-        System.out.println("++++++++"+isAuteur);
+        boolean isAuteur = isAuteur(def, response);
+        System.out.println("++++++++" + isAuteur);
         if (defiReposit.findById(email).isPresent()) {
             // si l'identifiant existe deja
             response.setStatus(403);
         } else if (!def.getId().equals(email)) {
             // les id ne correspondent pas
             response.setStatus(412);
-        } else if(isAuteur){
+        } else if (isAuteur) {
             defi.setId(def.getId());
             defi.setTitre(def.getTitre());
             defi.setAuteur(def.getAuteur());
@@ -86,8 +89,8 @@ public class DefiCRUD {
             defi.setDateDeCreation(def.getDateDeCreation());
             defi.setAvgEvaluation(def.getAvgEvaluation());
             defiReposit.save(defi);
-                
-        }else{
+
+        } else {
             System.out.println("l'auteur n'a pas été trouvé");
             response.setStatus(404);
         }
@@ -101,7 +104,7 @@ public class DefiCRUD {
         Defi defi = new Defi();
         boolean isAuteur = isAuteur(def, response);
         Chami cham = new Chami();
-        System.out.println("voici l'auteur =="+isAuteur);
+        System.out.println("voici l'auteur ==" + isAuteur);
 
         if ((defiReposit.findById(email).isPresent()) && isAuteur) {
             System.out.println("je suis dedans");
@@ -120,6 +123,11 @@ public class DefiCRUD {
         return defi;
     }
 
+    /**
+     * 
+     * @param email email d'un chami
+     * @param response
+     */
     @DeleteMapping("/{defiId}")
     public void delete(@PathVariable(value = "defiId") String email, HttpServletResponse response) {
         if (defiReposit.findById(email).isPresent()) {
@@ -130,22 +138,95 @@ public class DefiCRUD {
 
     }
 
-    
+    /**
+     * 
+     * @param def represente le defi
+     * @param response reponse server
+     * @return vrai si l'auteur d'un chami existe
+     */
+    public boolean isAuteur(Defi def, HttpServletResponse response) {
 
-    public boolean isAuteur(Defi def, HttpServletResponse response ) {
-
-     
         boolean isAuteur = false;
-        
-       if(chamiReposit.findById(def.getAuteur().getEmail()).isPresent()) isAuteur = true;
-    return  isAuteur;
+
+        if (chamiReposit.findById(def.getAuteur().getEmail()).isPresent())
+            isAuteur = true;
+        return isAuteur;
     }
-    public boolean isDefi(Defi def,HttpServletResponse response) {
+
+    public boolean isDefi(Defi def, HttpServletResponse response) {
         boolean isDefi = false;
-        if (read(def.getId(),response) != null) {
+        if (read(def.getId(), response) != null) {
             isDefi = true;
         }
         return isDefi;
     }
+
+    /**
+     * 
+     * @param titre    titre d'un defi
+     * @param response repone du server
+     * @return liste des defi dont le titre est donné
+     */
+    @GetMapping("titre/{titre}")
+    public Set<Defi> getDefiByTitre(@PathVariable(value = "titre") String titre, HttpServletResponse response) {
+
+        List<Defi> defis = new ArrayList<>();
+        Set<Defi> listDefi = new HashSet<>();
+        defis = allDefis(response);
+        for (Defi defi : defis) {
+            if (defi.getTitre().equalsIgnoreCase(titre)) {
+                listDefi.add(defi);
+            }
+        }
+        if (listDefi.isEmpty()) {
+            response.setStatus(404);
+        }
+        return listDefi;
+    }
+
+    /**
+     * 
+     * @param login    login du chami
+     * @param response reponse du server
+     * @return liste de defi d'un chami donné
+     */
+    @GetMapping("chami/{login}")
+    public Set<Defi> getDefiyByChami(@PathVariable(value = "chami") String login, HttpServletResponse response) {
+        List<Defi> defis = new ArrayList<>();
+        Set<Defi> listDefi = new HashSet<>();
+        defis = allDefis(response);
+        for (Defi defi : defis) {
+            if (defi.getAuteur().getLogin().equalsIgnoreCase(login)) {
+                listDefi.add(defi);
+            }
+        }
+        if (listDefi.isEmpty()) {
+            response.setStatus(404);
+        }
+        return listDefi;
+    }
+
+    /**
+     * 
+     * @param nomArret nom de l'arret qui correspondant à un defi donnée
+     * @param response reponse du server
+     * @return liste de defi avec avec comme arret nomArret
+     */
+    @GetMapping("arret/{nomArret}")
+    public Set<Defi> getDefiyByArret(@PathVariable(value = "nomArret") String nomArret, HttpServletResponse response) {
+        List<Defi> defis = new ArrayList<>();
+        Set<Defi> listDefi = new HashSet<>();
+        defis = allDefis(response);
+        for (Defi defi : defis) {
+            if (defi.getArret().getNom().equalsIgnoreCase(nomArret)) {
+                listDefi.add(defi);
+            }
+        }
+        if (listDefi.isEmpty()) {
+            response.setStatus(404);
+        }
+        return listDefi;
+    }
+
 
 }

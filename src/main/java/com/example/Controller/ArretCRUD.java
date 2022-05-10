@@ -7,12 +7,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.*;
 import com.example.*;
 import com.example.model.*;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.*;
@@ -127,4 +124,22 @@ public class ArretCRUD {
         return isArret;
     }
     
+
+    @GetMapping("nl/{numeroligne}")
+    public Set<Arret> getStopByNumbeLine(@PathVariable(value = "numeroligne")String numeroLine,HttpServletResponse response) throws SQLException{
+
+        List<Arret> arrets = new ArrayList<>();
+        Set<Arret> listArret = new HashSet<>();
+        arrets = allArret(response);
+        for (Arret arret: arrets) {
+            if(arret.getNumeroLigne().equalsIgnoreCase(numeroLine)){
+                listArret.add(arret);
+            }
+        }
+        if(listArret.isEmpty()){
+            response.setStatus(404);
+        }
+       return listArret;
+    }
+
 }

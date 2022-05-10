@@ -52,9 +52,8 @@ public class ChamiCRUD {
         }
        
         for (Chami ch : chamis ){
-             ch.setNbreDefis(ch.getDefiesCrees().size());
-             ch.getNbreDefis();
-            
+             //ch.setNbreDefis(ch.getDefiesCrees().size());
+             //ch.getNbreDefis();
         }
         return chamis;
     }

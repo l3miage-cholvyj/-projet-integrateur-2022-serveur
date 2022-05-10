@@ -1,5 +1,6 @@
 package com.example.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -19,11 +20,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-
-public class Arret {
+public class Arret implements Serializable{
 
     @Id
-    @Column(name = "nom", unique = true, nullable = false, updatable = true)
+    @Column(name = "id",nullable=false)
+    private int id;
+
+    @Column(name = "nom",nullable = false, updatable = true)
     private String nom;
 
     @Column(name = "numeroLigne", updatable = true, insertable = true)
@@ -32,8 +35,8 @@ public class Arret {
     @Column(name = "gps", updatable = true, insertable = true)
     private String gps;
     
-    @OneToMany(mappedBy = "arret")
-    private List<Defi> defi;
+    //@OneToMany(mappedBy = "arret",cascade = CascadeType.ALL)
+    //private List<Defi> defi;
 
     public String getNom() {
         return nom;
@@ -57,14 +60,6 @@ public class Arret {
 
     public void setGps(String gps) {
         this.gps = gps;
-    }
-
-    public List<Defi> getDefi() {
-        return defi;
-    }
-
-    public void setDefi(List<Defi> defi) {
-        this.defi = defi;
     }
 
 }

@@ -15,9 +15,9 @@ import java.io.Serializable;
 public class Etape implements Serializable {
 
     @Id
-    @GeneratedValue()
-    @Column(name = "id", nullable = false, updatable = true)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_etape", nullable = false, updatable = true)
+    private int idEtape;
 
     @Column(name = "gps", updatable = true)
     private String gps;
@@ -26,7 +26,10 @@ public class Etape implements Serializable {
     private String numEtape;
 
     @Column(name = " nbpoints", updatable = true, insertable = true)
-    private String nbPoints;
+    private int nbPoints;
+
+    @Column(name = " media", nullable = true)
+    private String media;
 
     @Column(name = "messagedebut", updatable = true, insertable = true)
     private String messageDebut;
@@ -45,12 +48,24 @@ public class Etape implements Serializable {
     @Column(name = "qcmchoixdeux", updatable = true, insertable = true)
     private String qcmchoixDeux;
 
+    @ManyToOne
+    private Defi defi;
+
+    @OneToMany(mappedBy = "etape")
+    private List<Reponse> reponseEtape;
+
+    @OneToMany(mappedBy = "visite")
+    private List<Reponse> reponseVisite;
+
+    @JsonSerialize
+    private transient int nbrEtapePourDefi;
+
     public int getId() {
-        return id;
+        return idEtape;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idEtape = id;
     }
 
     public String getGps() {
@@ -69,11 +84,11 @@ public class Etape implements Serializable {
         this.numEtape = numEtape;
     }
 
-    public String getNbPoints() {
+    public int getNbPoints() {
         return nbPoints;
     }
 
-    public void setNbPoints(String nbPoints) {
+    public void setNbPoints(int nbPoints) {
         this.nbPoints = nbPoints;
     }
 
@@ -174,10 +189,15 @@ public class Etape implements Serializable {
     @Column(name = "indice", updatable = true, insertable = true)
     private String indice;
 
-    @ManyToOne
-    private Defi defi;
-
-    @JsonSerialize
-    private transient int nbrEtapePourDefi;
+    @Override
+    public boolean equals(Object obj) {
+        // TODO Auto-generated method stub
+        return super.equals(obj);
+    }
+     @Override
+     public int hashCode() {
+         // TODO Auto-generated method stub
+         return super.hashCode();
+     }
 
 }

@@ -11,6 +11,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.core.sym.Name;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.KeyDeserializer;
+import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+import com.fasterxml.jackson.databind.type.ArrayType;
+import com.fasterxml.jackson.databind.type.CollectionLikeType;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.MapLikeType;
+import com.fasterxml.jackson.databind.type.MapType;
+import com.fasterxml.jackson.databind.type.ReferenceType;
 
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -21,36 +36,34 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "defi")
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
-public class Defi{
+public class Defi { 
 
     @Id
     @Column(name = "id", nullable = false,updatable = true)
     private String id;
 
-    @Column(name = "description",nullable = true, updatable = true,insertable = true)
-    private String description;
-
     @Column(name = "titre",nullable = false, updatable = true, insertable = true)
     private String titre;
+
+    @Column(name = "description",nullable = true, updatable = true,insertable = true)
+    private String description;
 
     @Column(name = "datedecreation",nullable = true, updatable = true,insertable = true)
     private Date dateDeCreation;
 
-
     @Column(name = "avgevaluation",nullable = true, updatable = true,insertable = true)
     private Double avgEvaluation ;
-
 
     @ManyToOne()
     private Arret arret;
 
-    @OneToMany(mappedBy = "defi")
+    @OneToMany(mappedBy = "defi",cascade = CascadeType.ALL)
     private List<Etape> EtapeDunDefi;
     
     @ManyToOne()
     private Chami auteur;
-
-    @OneToMany(mappedBy = "defiVisite")
+ 
+    @OneToMany(mappedBy = "defiVisite",cascade = CascadeType.ALL)
     private List<Visite> visite;
 
     public List<Etape> getEtapeDunDefi() {
@@ -71,8 +84,6 @@ public class Defi{
     public void setArret(Arret arret) {
         this.arret = arret;
     }
-
-   
 
 
     public Defi(){}
@@ -138,9 +149,8 @@ public class Defi{
     }
 
 
-   
 
-   
-    
+
+
 
 }

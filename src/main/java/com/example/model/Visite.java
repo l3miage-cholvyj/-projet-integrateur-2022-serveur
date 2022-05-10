@@ -13,12 +13,12 @@ import java.io.Serializable;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-public class Visite {
+public class Visite implements Serializable {
 
     @Id
-    @GeneratedValue()
-    @Column(name = "id", nullable = false, updatable = true)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_visite", nullable = false, updatable = true)
+    private int idVisite;
 
     @Column(name = "date", nullable = false, updatable = true)
     private Date date;
@@ -53,11 +53,11 @@ public class Visite {
 
 
     public int getId() {
-        return id;
+        return idVisite;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idVisite = id;
     }
 
     public Date getDate() {
@@ -125,5 +125,14 @@ public class Visite {
     }
 
   
-  
+    @Override
+    public boolean equals(Object obj) {
+        // TODO Auto-generated method stub
+        return super.equals(obj);
+    }
+     @Override
+     public int hashCode() {
+         // TODO Auto-generated method stub
+         return super.hashCode();
+     }
 }

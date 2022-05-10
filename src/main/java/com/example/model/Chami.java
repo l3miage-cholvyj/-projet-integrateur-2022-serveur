@@ -38,8 +38,8 @@ public class Chami {
     @OneToMany(mappedBy = "visiteur",cascade = CascadeType.ALL)
     private List<Visite> visites;
    
-    @Transient
-    private int nbreDefis;
+   // @Transient
+   // private int nbreDefis;
 
 
     public Chami(){}
@@ -49,13 +49,6 @@ public class Chami {
     }
 
 
-    public int getNbreDefis() {
-        return nbreDefis;
-    }
-
-    public void setNbreDefis(int nbreDefis) {
-        this.nbreDefis = nbreDefis;
-    }
 
     public void setAge(int age) {
         this.age = age;
