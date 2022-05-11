@@ -1,6 +1,93 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=7711943&assignment_repo_type=AssignmentRepo)
 # l3m-PI-serveur : Partie serveur du Projet Intégrateur L3 MIAGE 2020-2021
 
+
+# Description API HTTP 
+
+## Chami CRUD
+Api : api/users
+@GetMapping : api /
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 A stub which can easily be deployed to Heroku.
 
 This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
@@ -31,7 +118,7 @@ Configure Heroku Deploying mode to GitHub so that you can automatically deploy o
 ## Documentation
 
 For more information about using Java on Heroku, see these Dev Center articles:
-
+uuuu
 - [Java on Heroku](https://devcenter.heroku.com/categories/java)
 
 
