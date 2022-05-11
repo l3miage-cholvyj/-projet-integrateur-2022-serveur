@@ -35,8 +35,13 @@ public class Arret implements Serializable{
     @Column(name = "gps", updatable = true, insertable = true)
     private String gps;
     
-    //@OneToMany(mappedBy = "arret",cascade = CascadeType.ALL)
-    //private List<Defi> defi;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNom() {
         return nom;

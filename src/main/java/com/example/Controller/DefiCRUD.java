@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.example.model.Arret;
 import com.example.model.Chami;
 import com.example.model.Defi;
 import com.example.repository.ChamisRepository;
@@ -44,7 +45,6 @@ public class DefiCRUD {
 
     @GetMapping("/")
     public List<Defi> allDefis(HttpServletResponse response) {
-        System.out.println("i m here=========================================");
         return defiReposit.findAll();
     }
 
@@ -73,21 +73,27 @@ public class DefiCRUD {
             HttpServletResponse response) {
         System.out.println("=================methode post==================");
         Defi defi = new Defi();
-        boolean isAuteur = isAuteur(def, response);
-        System.out.println("++++++++" + isAuteur);
+        Chami cham = new Chami();
+        Arret arret = new Arret();
+        boolean isAuteur = new ChamiCRUD().isAuteur(def, response);
+        boolean isArret = new ArretCRUD().isArret(def,response);
         if (defiReposit.findById(email).isPresent()) {
             // si l'identifiant existe deja
             response.setStatus(403);
         } else if (!def.getId().equals(email)) {
             // les id ne correspondent pas
             response.setStatus(412);
-        } else if (isAuteur) {
+        } else if (isAuteur & isArret) {
+            cham = def.getAuteur();
+            arret = def.getArret();
+            defi.setAuteur(cham);
+            defi.setArret(arret);
             defi.setId(def.getId());
             defi.setTitre(def.getTitre());
             defi.setAuteur(def.getAuteur());
             defi.setDescription(def.getDescription());
             defi.setDateDeCreation(def.getDateDeCreation());
-            defi.setAvgEvaluation(def.getAvgEvaluation());
+            defi.setMoyenneEvaluation(def.getMoyenneEvaluation());
             defiReposit.save(defi);
 
         } else {
@@ -102,20 +108,27 @@ public class DefiCRUD {
     public Defi update(@PathVariable(value = "defiId") String email, @RequestBody Defi def,
             HttpServletResponse response) {
         Defi defi = new Defi();
-        boolean isAuteur = isAuteur(def, response);
         Chami cham = new Chami();
-        System.out.println("voici l'auteur ==" + isAuteur);
+        Arret arret = new Arret();
 
-        if ((defiReposit.findById(email).isPresent()) && isAuteur) {
+        //methodes qui permettent qui verifier s'arret et l'auteur existe deja dans la base
+        //pour pouvoir faire une modification 
+        boolean isAuteur = new ChamiCRUD().isAuteur(def, response);
+        boolean isArret = new ArretCRUD().isArret(def,response);
+        
+        
+        if ((defiReposit.findById(email).isPresent()) && isAuteur && isArret) {
             System.out.println("je suis dedans");
+            //mettre à jour l'auteur et l'arret qui existe deja
+            cham = def.getAuteur();
+            arret = def.getArret();
+            defi.setAuteur(cham);
+            defi.setArret(arret);
             defi.setId(def.getId());
             defi.setTitre(def.getTitre());
-            cham.setLogin(def.getAuteur().getLogin());
-            cham.setAge(def.getAuteur().getAge());
-            defi.setAuteur(cham);
             defi.setDescription(def.getDescription());
             defi.setDateDeCreation(def.getDateDeCreation());
-            defi.setAvgEvaluation(def.getAvgEvaluation());
+            defi.setMoyenneEvaluation(def.getMoyenneEvaluation());
             defiReposit.save(defi);
         } else {
             response.setStatus(404);
@@ -144,15 +157,7 @@ public class DefiCRUD {
      * @param response reponse server
      * @return vrai si l'auteur d'un chami existe
      */
-    public boolean isAuteur(Defi def, HttpServletResponse response) {
-
-        boolean isAuteur = false;
-
-        if (chamiReposit.findById(def.getAuteur().getEmail()).isPresent())
-            isAuteur = true;
-        return isAuteur;
-    }
-
+  
     public boolean isDefi(Defi def, HttpServletResponse response) {
         boolean isDefi = false;
         if (read(def.getId(), response) != null) {
@@ -227,6 +232,5 @@ public class DefiCRUD {
         }
         return listDefi;
     }
-
 
 }

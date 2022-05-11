@@ -19,12 +19,11 @@ public class Chami {
     @Column(name = "email",nullable = false, updatable = true )
     private String email;
 
-    @Column(name = "login",nullable = false, updatable = true,insertable = true)
+    @Column(name = "login",unique=true,nullable = false, updatable = true,insertable = true)
     private String login;
     
     @Column(name = "age",nullable = true, updatable = true,insertable = true)
     private int age;
-
 
     @Column(name = "description",nullable = true, updatable = true,insertable = true)
     private String description;

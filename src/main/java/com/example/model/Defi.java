@@ -51,8 +51,8 @@ public class Defi {
     @Column(name = "datedecreation",nullable = true, updatable = true,insertable = true)
     private Date dateDeCreation;
 
-    @Column(name = "avgevaluation",nullable = true, updatable = true,insertable = true)
-    private Double avgEvaluation ;
+    @Column(name = "moyennevaluation",nullable = true, updatable = true,insertable = true)
+    private Double moyenneEvaluation ;
 
     @ManyToOne()
     private Arret arret;
@@ -89,12 +89,12 @@ public class Defi {
     public Defi(){}
 
 
-    public Double getAvgEvaluation() {
-        return avgEvaluation;
+    public Double getMoyenneEvaluation() {
+        return moyenneEvaluation;
     }
 
-    public void setAvgEvaluation(Double avgEvaluation) {
-        this.avgEvaluation = avgEvaluation;
+    public void setMoyenneEvaluation(Double moyenneEvaluation) {
+        this.moyenneEvaluation = moyenneEvaluation;
     }
 
     public String getId() {

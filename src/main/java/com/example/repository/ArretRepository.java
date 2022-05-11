@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
-public interface ArretRepository extends JpaRepository<Arret,String> {
+public interface ArretRepository extends JpaRepository<Arret,Integer> {
     
     //@Query("select * from arret where numero_line =:numberLine")
    // Arret findStopByNumberLine(@Param("numberLine") String numberLine);
