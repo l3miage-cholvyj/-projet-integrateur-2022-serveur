@@ -4,7 +4,9 @@
 
 # Description API HTTP 
 
-
+## Chami CRUD
+Api : api/users
+@GetMapping : api /
 
 
 
