@@ -19,8 +19,23 @@ public List<Chami> allUsers(HttpServletResponse response);
 ```
 
 ```java @PostMapping("/{userId}")```: cree un chami, au prealable verifie l''existance ou pas des identifiants dans la base.
- public Chami create(@PathVariable(value = "userId") String email, @RequestBody Chami u,
+ ```java
+  public Chami create(@PathVariable(value = "userId") String email, @RequestBody Chami u,
+            HttpServletResponse response);
+```
+
+```java @PutMapping("/{userId}")```: permet de faire la mise à jour des informations d'un chami.
+
+   ```java  
+   public Chami update(@PathVariable(value = "userId") String email, @RequestBody Chami u,
             HttpServletResponse response) {
+ ```
+ ```java @DeleteMapping("/{userId}")```: Effectue la suppression d'un chami dans la base de données
+ ``` java
+    public void delete(@PathVariable(value = "userId") String id, HttpServletResponse response),
+ ```
+
+ 
 
 
 
