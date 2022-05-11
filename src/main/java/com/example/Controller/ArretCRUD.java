@@ -51,10 +51,9 @@ public class ArretCRUD {
         return arrets;
     }
 
-    // read
-    // qui renvoi l'utilisateur dont le login est userID
+
     @GetMapping("/{arretId}")
-    public Arret read(@PathVariable(value = "arretId") String id, HttpServletResponse response) throws SQLException {
+    public Arret read(@PathVariable(value = "arretId") int id, HttpServletResponse response) throws SQLException {
         Arret arret = new Arret();
         if (arretReposit.findById(id).isPresent()) {
             arret = arretReposit.getById(id);
@@ -65,18 +64,13 @@ public class ArretCRUD {
         return arret;
     }
 
-    // methode qui permet de creer un nouvel u utilsateur
     @PostMapping("/{arretId}")
-    public Arret create(@PathVariable(value = "arretId") String id, @RequestBody Arret u,
+    public Arret create(@PathVariable(value = "arretId") int id, @RequestBody Arret u,
             HttpServletResponse response)throws SQLException {
         Arret arret = new Arret();
-
-        System.out.println("voici le nom"+u.getNom());
-
         if (arretReposit.findById(id).isPresent()) {
             // si l'arret existe deja
             response.setStatus(403);
-
         } else if (!u.getNom().equals(id)) {
             // les id ne correspondent pas
             response.setStatus(412);
@@ -86,12 +80,11 @@ public class ArretCRUD {
             arret.setGps(u.getGps());
             arretReposit.save(arret);
         }
-       
         return arret;
     }
 
     @PutMapping("/{arretId}")
-    public Arret update(@PathVariable(value = "arretId") String id, @RequestBody Arret u,
+    public Arret update(@PathVariable(value = "arretId") int id, @RequestBody Arret u,
             HttpServletResponse response)throws SQLException {
                 Arret arret = new Arret();
                 if (arretReposit.findById(id).isPresent()) {
@@ -105,23 +98,13 @@ public class ArretCRUD {
     }
 
     @DeleteMapping("/{arretId}")
-    public void delete(@PathVariable(value = "arretId") String id, HttpServletResponse response)throws SQLException {
+    public void delete(@PathVariable(value = "arretId") int id, HttpServletResponse response)throws SQLException {
         if (arretReposit.findById(id).isPresent()) {
             arretReposit.deleteById(id);
         } else {
             response.setStatus(404);
         }
 
-    }
-
-    public boolean findArret(Arret arret,HttpServletResponse response) throws SQLException{
-        boolean isArret = false;
-        if(read(arret.getNom(),response)!=null){
-        isArret = true;
-        }else{
-            response.setStatus(404);
-        }
-        return isArret;
     }
     
 
@@ -140,6 +123,18 @@ public class ArretCRUD {
             response.setStatus(404);
         }
        return listArret;
+    }
+
+    public boolean isArret(Defi def, HttpServletResponse response) {
+
+        boolean isArret = false;
+
+        if (arretReposit.findById(def.getArret().getId()).isPresent()){
+            isArret = true;
+        }else{
+            System.out.println("l'arret recherche n'existe");
+        }
+        return isArret;
     }
 
 }

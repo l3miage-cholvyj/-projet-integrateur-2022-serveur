@@ -14,6 +14,7 @@ import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.example.model.Chami;
 import com.example.model.Defi;
 import com.example.model.Visite;
 
@@ -39,10 +40,7 @@ public class VisiteCRUD {
     private DataSource dataSource;
     @Autowired
     private VisiteRepository visiteReposit;
-    // @Autowired
-    // private DefiRepository defiReposit;
-    // @Autowired
-    // private ChamiRepository chamiReposit;
+   
 
     @GetMapping("/")
     public List<Visite> allVisite(HttpServletResponse response) throws SQLException {
@@ -67,13 +65,16 @@ public class VisiteCRUD {
         return visite;
     }
 
-    // methode qui permet de creer un nouvel u utilsateur
     @PostMapping("/{visiteId}")
     public Visite create(@PathVariable(value = "visiteId") int id, @RequestBody Visite visit,
             HttpServletResponse response) throws SQLException {
 
         Visite visite = new Visite();
-        boolean isDefi = false; // new DefiCRUD().isDefi(visite.getDefi(),response);
+        Chami cham = new Chami();
+        Defi def = new Defi();
+
+        boolean isDefi =  new DefiCRUD().isDefi(visit.getDefiVisite(),response);
+        boolean isAuteur = new ChamiCRUD().isAuteur(visit.getVisiteur(), response);
         if (visiteReposit.findById(id).isPresent()) {
             // si la visite existe deja
             response.setStatus(403);
@@ -81,14 +82,18 @@ public class VisiteCRUD {
         } else if (visit.getId() != id) {
             // les id ne correspondent pas
             response.setStatus(412);
-        } else if (isDefi) {
+        } else if (isDefi && isAuteur) {
+            cham = visit.getVisiteur();
+            def = visit.getDefiVisite();
+            visite.setVisiteur(cham);
+            visite.setDefiVisite(def);
+            visite.setVisiteur(visit.getVisiteur());
             visite.setDate(visit.getDate());
             visite.setEstfinie(visit.isEstfinie());
             visite.setEvaluation(visit.getEvaluation());
             visite.setScore(visit.getScore());
             visite.setTemps(visit.getTemps());
             visite.setCommentaire(visit.getCommentaire());
-            // visite.setDefi(visit.getDefi());
             visiteReposit.save(visite);
         }
 
@@ -99,8 +104,16 @@ public class VisiteCRUD {
     public Visite update(@PathVariable(value = "visiteId") int id, @RequestBody Visite visit,
             HttpServletResponse response) throws SQLException {
         Visite visite = new Visite();
+        Chami cham = new Chami();
+        Defi def = new Defi();
 
-        if (visiteReposit.findById(id).isPresent()) {
+        boolean isDefi =  new DefiCRUD().isDefi(visit.getDefiVisite(),response);
+        boolean isAuteur = new ChamiCRUD().isAuteur(visit.getVisiteur(), response);
+
+        if (visiteReposit.findById(id).isPresent() && isAuteur && isDefi) {
+            cham = visit.getVisiteur();
+            def = visit.getDefiVisite();
+            visite.setVisiteur(cham);
             visite.setId(visit.getId());
             visite.setDate(visit.getDate());
             visite.setEstfinie(visit.isEstfinie());
@@ -108,7 +121,7 @@ public class VisiteCRUD {
             visite.setScore(visit.getScore());
             visite.setTemps(visit.getTemps());
             visite.setCommentaire(visit.getCommentaire());
-            // visite.setDefi(visit.getDefi());
+            visiteReposit.save(visite);
 
         } else {
             response.setStatus(404);

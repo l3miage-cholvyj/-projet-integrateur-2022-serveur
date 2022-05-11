@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 
 
 import com.example.model.Chami;
+import com.example.model.Defi;
 import com.example.repository.ChamisRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,15 +47,7 @@ public class ChamiCRUD {
        //System.out.println("==========="+ new LesChamis().getDefiesCrees().size());
 
         List<Chami> chamis = new ArrayList<>();
-        try {
             chamis = chamiReposit.findAll();
-        } catch (EntityNotFoundException e) {
-        }
-       
-        for (Chami ch : chamis ){
-             //ch.setNbreDefis(ch.getDefiesCrees().size());
-             //ch.getNbreDefis();
-        }
         return chamis;
     }
 
@@ -125,4 +118,26 @@ public class ChamiCRUD {
         }
 
     }
+   
+    /**  
+     * verfier si l'email d'un chami existe dans un defi
+     */
+    public boolean isAuteur(Defi def, HttpServletResponse response) {
+
+        boolean isAuteur = false;
+
+        if (chamiReposit.findById(def.getAuteur().getEmail()).isPresent())
+            isAuteur = true;
+        return isAuteur;
+    }
+
+    public boolean isAuteur(Chami cham, HttpServletResponse response) {
+
+        boolean isAuteur = false;
+
+        if (chamiReposit.findById(cham.getEmail()).isPresent())
+            isAuteur = true;
+        return isAuteur;
+    }
+
 }
