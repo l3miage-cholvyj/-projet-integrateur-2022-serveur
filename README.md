@@ -5,8 +5,43 @@
 # Description API HTTP 
 
 ## Chami CRUD
+classe qui permet d'interagir avec la table chami dans la base de données.
+avec des methodes que nous avons jujé necessaire decris ci dessous.
 Api : api/users
-@GetMapping : api /
+```java @GetMapping``` : api/users/ retourne une liste de chamis dans la base de données.
+voir ci dessous la signature de la methode
+```java
+public List<Chami> allUsers(HttpServletResponse response);
+```
+```java @GetMapping("/{userId}") ``` : retourne un utilisateur dont l'identifiant est passé en parametre s'il existe dans la base.
+```java
+    public Chami read(@PathVariable(value = "userId") String email, HttpServletResponse response);
+```
+
+```java @PostMapping("/{userId}")```: cree un chami, au prealable verifie l''existance ou pas des identifiants dans la base.
+ ```java
+  public Chami create(@PathVariable(value = "userId") String email, @RequestBody Chami u,
+            HttpServletResponse response);
+```
+
+```java @PutMapping("/{userId}")```: permet de faire la mise à jour des informations d'un chami.
+
+   ```java  
+   public Chami update(@PathVariable(value = "userId") String email, @RequestBody Chami u,
+            HttpServletResponse response) {
+ ```
+ ```java @DeleteMapping("/{userId}")```: Effectue la suppression d'un chami dans la base de données
+ ``` java
+    public void delete(@PathVariable(value = "userId") String id, HttpServletResponse response),
+ ```
+
+ 
+
+
+
+
+
+
 
 
 
