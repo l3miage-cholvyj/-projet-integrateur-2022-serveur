@@ -40,6 +40,7 @@ public class ReponseCRUD {
     return reponseReposit.findAll();
     }
 
+    //retourne une reponse en fonction de la visite de l'id  
     @GetMapping("/reponse/{idVisite}")
     public Set<Reponse> findReponeByIdVisite(@PathVariable(value = "idVisite") int idVisite,HttpServletResponse response){
         List<Reponse> reponses = new ArrayList<>();
@@ -52,6 +53,21 @@ public class ReponseCRUD {
         }if(listReponse.isEmpty()) response.setStatus(404);
         return listReponse;
     }   
+
+  /*   @PostMapping("/{idEtape}/{idVisite}"})
+    public Reponse create(@PathVariable(value = "idEtape" @PathVariable value="idVisite") int idEtape, int idVisite, 
+    @RequestBody Reponse u,HttpServletResponse response)throws SQLException {
+
+        Reponse reponse  = new Reponse();
+      
+    if (reponseReposit.findById(idEtape).isPresent() && responseReposit.findId(idVisite)) {
+        response.setStatus(404);
+    }else{
+       response. 
+         
+    }
+*/
+
     
 }
    

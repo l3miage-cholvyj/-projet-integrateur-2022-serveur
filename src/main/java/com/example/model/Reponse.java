@@ -69,8 +69,4 @@ public class Reponse implements Serializable{
         this.visite = visite;
     }
 
-
-    
-
-
 }

@@ -43,13 +43,7 @@ public class Visite implements Serializable {
 
     @ManyToOne()
     private Chami visiteur;
-     /* 
-     * @ManyToMany(mappedBy = "visite")
-     * public Etape etape;
-     * 
-     * @JsonSerialize
-     * public transient int nb;
-     */
+
 
 
     public int getId() {
