@@ -46,7 +46,16 @@ public class Etape implements Serializable {
     private String qcmChoixUn;
 
     @Column(name = "qcmchoixdeux", updatable = true, insertable = true)
-    private String qcmchoixDeux;
+    private String qcmChoixDeux;
+
+    @Column(name = "qcmChoixtrois", updatable = true, insertable = true)
+    private String qcmChoixTrois;
+
+    @Column(name = "qcmChoixquatre", updatable = true, insertable = true)
+    private String qcmChoixQuatre;
+
+    @Column(name = "indice", updatable = true, insertable = true)
+    private String indice;
 
     @ManyToOne
     private Defi defi;
@@ -133,27 +142,27 @@ public class Etape implements Serializable {
     }
 
     public String getQcmchoixDeux() {
-        return qcmchoixDeux;
+        return qcmChoixDeux;
     }
 
-    public void setQcmchoixDeux(String qcmchoixDeux) {
-        this.qcmchoixDeux = qcmchoixDeux;
+    public void setQcmchoixDeux(String qcmChoixDeux) {
+        this.qcmChoixDeux = qcmChoixDeux;
     }
 
     public String getQcmChoiTrois() {
-        return qcmChoiTrois;
+        return qcmChoixTrois;
     }
 
-    public void setQcmChoiTrois(String qcmChoiTrois) {
-        this.qcmChoiTrois = qcmChoiTrois;
+    public void setQcmChoiTrois(String qcmChoixTrois) {
+        this.qcmChoixTrois = qcmChoixTrois;
     }
 
     public String getQcmchoixQuatre() {
-        return qcmchoixQuatre;
+        return qcmChoixQuatre;
     }
 
-    public void setQcmchoixQuatre(String qcmchoixQuatre) {
-        this.qcmchoixQuatre = qcmchoixQuatre;
+    public void setQcmchoixQuatre(String qcmChoixQuatre) {
+        this.qcmChoixQuatre = qcmChoixQuatre;
     }
 
     public String getIndice() {
@@ -180,16 +189,7 @@ public class Etape implements Serializable {
         this.nbrEtapePourDefi = nbrEtapePourDefi;
     }
 
-    @Column(name = "qcmchoixtrois", updatable = true, insertable = true)
-    private String qcmChoiTrois;
 
-    @Column(name = "qcmchoixquatre", updatable = true, insertable = true)
-    private String qcmchoixQuatre;
-
-    @Column(name = "indice", updatable = true, insertable = true)
-    private String indice;
-
-    @Override
     public boolean equals(Object obj) {
         // TODO Auto-generated method stub
         return super.equals(obj);
