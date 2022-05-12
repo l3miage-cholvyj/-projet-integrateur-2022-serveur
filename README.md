@@ -15,11 +15,11 @@ voir ci dessous la signature de la methode
 
 ```java @GetMapping("/{userId}") ``` : retourne un utilisateur dont l'identifiant est passé en parametre s'il existe dans la base.
 
-<< public Chami read(@PathVariable(value = "userId") String email, HttpServletResponse response);>>
+<<  public Chami read(@PathVariable(value = "userId") String email, HttpServletResponse response);>> 
 
 ```java @PostMapping("/{userId}")```: cree un chami, au prealable verifie l''existance ou pas des identifiants dans la base.
 
-  << public Chami create(@PathVariable(value = "userId") String email, @RequestBody Chami u,
+  <<  public Chami create(@PathVariable(value = "userId") String email, @RequestBody Chami u, 
             HttpServletResponse response);>>
 
 ```java @PutMapping("/{userId}")```: permet de faire la mise à jour des informations d'un chami.
@@ -30,7 +30,7 @@ voir ci dessous la signature de la methode
 
  ```java @DeleteMapping("/{userId}")```: Effectue la suppression d'un chami dans la base de données
  
-   << public void delete(@PathVariable(value = "userId") String id, HttpServletResponse response);>>
+   <<  public void delete(@PathVariable(value = "userId") String id, HttpServletResponse response);>>  
  
 
 ## Defi CRUD
@@ -51,7 +51,7 @@ Api : "/api/defis"
 
 ```java @PutMapping("/{defiId}")```:Effectu la mise à jour des informations d'un defi.
 
-    <<public Defi update(@PathVariable(value = "defiId") String email, @RequestBody Defi def,
+    <<  public Defi update(@PathVariable(value = "defiId") String email, @RequestBody Defi def, 
             HttpServletResponse response)>>
 
 ```java @DeleteMapping("/{defiId}")```: Supprime un defi dont l'identifiant est passé en parametre dans la base de données.
@@ -60,7 +60,7 @@ Api : "/api/defis"
 
 ```java @GetMapping("titre/{titre}")```: Retourne une liste de defi dont le titre est passé en parametre.
 
-    <<public Set<Defi> getDefiByTitre(@PathVariable(value = "titre") String titre, HttpServletResponse response)>>
+    << public Set<Defi> getDefiByTitre(@PathVariable(value = "titre") String titre, HttpServletResponse response)>> 
 
 ```java @GetMapping("chami/{login}")```: Retourne la liste de defi pour un chami passé en parametre.
 
